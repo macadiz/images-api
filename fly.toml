@@ -1,0 +1,27 @@
+# fly.toml app configuration file generated for images-api on 2024-10-10T19:25:53-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'images-api'
+primary_region = 'scl'
+
+[build]
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+[build.args]
+  IMAGES_API_ARG='https://api.unsplash.com'
+  REDIS_PORT_ARG='6379'
+  ALLOWED_ORIGINS_ARG='*'

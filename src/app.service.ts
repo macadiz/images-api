@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 import { RedisService } from './data/redis/redis.service';
@@ -38,7 +38,8 @@ export class AppService {
 
         return processedImages;
       })
-      .catch(() => {
+      .catch((e) => {
+        Logger.log(e.message);
         return this.redisService.getAll();
       });
 
